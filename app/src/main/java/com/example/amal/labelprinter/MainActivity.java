@@ -30,6 +30,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     TextView prodDateId;
     TextView palletizersinitialId;
     LinearLayout linearLayout1;
-    SimpleDateFormat dateF = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    SimpleDateFormat dateF = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         previewImage = (ImageView)findViewById(R.id.previewImg);
         linearLayout1 = (LinearLayout)findViewById(R.id.linearLayout1);
+        linearLayout1.setVisibility(View.INVISIBLE);
 
         //linearLayout1.Visibility= ViewStates.Invisible;
         itemNumber =(EditText)findViewById(R.id.itemNumber);
@@ -120,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 GenerateBarcode(GetBarcodeText());
-
+                linearLayout1.setVisibility(View.VISIBLE);
                 previewImage.setImageBitmap(barcode);
             }
         });
@@ -132,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 GenerateBarcode(GetBarcodeText());
+                linearLayout1.setVisibility(View.VISIBLE);
+                previewImage.setImageBitmap(barcode);
                 PrintBarcode();
             }
         });
@@ -228,13 +233,11 @@ public class GenericPrintAdapter extends PrintDocumentAdapter{
     }
     void WritePrintedPdfDoc(ParcelFileDescriptor destination)
     {
-        java.io.FileOutputStream javaStream = new java.io.FileOutputStream(destination.getFileDescriptor());
-        OutputStreamWriter osi = new OutputStreamWriter(javaStream);
-        using (var mem = new MemoryStream())
-        {   document.writeTo();
-
-            var bytes = mem.ToArray();
-            osi.write(bytes, 0, bytes.ength);
+        try {
+            java.io.FileOutputStream fileOutputStream = new java.io.FileOutputStream(destination.getFileDescriptor());
+            document.writeTo(fileOutputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -253,7 +256,7 @@ public class GenericPrintAdapter extends PrintDocumentAdapter{
 
         try {
 
-            bitmap = encodeAsBitmap(GetBarcodeText(), BarcodeFormat.CODE_128, 600, 300);
+            bitmap = encodeAsBitmap(GetBarcodeText(), BarcodeFormat.CODE_128, 1200, 300);
 
         } catch (WriterException e) {
             e.printStackTrace();
