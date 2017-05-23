@@ -13,7 +13,6 @@
         android:layout_height="match_parent">
         <TextView
             android:text="Date"
-            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="0.0dp" />
@@ -24,7 +23,6 @@
             android:focusable="false"/>
         <TextView
             android:text="Item number"
-            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="0.0dp" />
@@ -35,7 +33,6 @@
             android:maxLength="5" />
         <TextView
             android:text="Case count"
-            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView2" />
@@ -47,7 +44,6 @@
             android:maxLength="3" />
         <TextView
             android:text="Skid number"
-            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView3" />
@@ -58,7 +54,6 @@
             android:inputType="number"
             android:maxLength="2" />
         <TextView
-            android:textSize="20dp"
             android:text="Parallelizer initials"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
