@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
         <TextView
             android:text="Date"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="0.0dp" />
@@ -24,7 +24,7 @@
             android:focusable="false"/>
         <TextView
             android:text="Item number"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="0.0dp" />
@@ -35,7 +35,7 @@
             android:maxLength="5" />
         <TextView
             android:text="Case count"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView2" />
@@ -47,7 +47,7 @@
             android:maxLength="3" />
         <TextView
             android:text="Skid number"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView3" />
@@ -58,8 +58,8 @@
             android:inputType="number"
             android:maxLength="2" />
         <TextView
+            android:textSize="20dp"
             android:text="Parallelizer initials"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView4" />
@@ -212,13 +212,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/linearLayout2"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:weightSum="2">
             <Button
+                android:layout_weight="1"
+                style="@style/Widget.AppCompat.Button"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:textColor="#FFFFFF"
                 android:text="Preview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/previewBtn" />
             <Button
+                android:layout_weight="1"
+                style="@style/Widget.AppCompat.Button"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:textColor="#FFFFFF"
                 android:text="Print "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
