@@ -1,18 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.amal.labelprinter.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:text="Date"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="0.0dp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateMy"
+            android:focusable="false"/>
+        <TextView
+            android:text="Item number"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="0.0dp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemNumber"
+            android:maxLength="5" />
+        <TextView
+            android:text="Case count"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/caseCount"
+            android:inputType="number"
+            android:maxLength="3" />
+        <TextView
+            android:text="Skid number"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/skidNumber"
+            android:inputType="number"
+            android:maxLength="2" />
+        <TextView
+            android:text="Parallelizer initials"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/parallelizer"
+            android:inputType="textCapCharacters"
+            android:maxLength="2" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout1"
+            android:gravity="center_horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/previewImg" />
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tableLayout1"
+                android:background="@android:color/black"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="center">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Item#"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="text"
+                        android:id="@+id/itemId"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Case Count"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="text"
+                        android:id="@+id/caseCountId"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Skid Count"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="text"
+                        android:id="@+id/skidCountId"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Prod Date"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="text"
+                        android:id="@+id/prodDateId"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Palletizers initial"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="text"
+                        android:id="@+id/palletizersinitialId"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:gravity="center_horizontal">
+            <Button
+                android:text="Preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/previewBtn" />
+            <Button
+                android:text="Print "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/printBtn" />
+        </LinearLayout>
+    </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>
