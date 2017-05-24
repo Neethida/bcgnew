@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
 import android.os.CancellationSignal;
+import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.print.PageRange;
 import android.print.PrintAttributes;
@@ -21,6 +22,7 @@ import android.print.pdf.PrintedPdfDocument;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     TextView prodDateId;
     TextView palletizersinitialId;
     LinearLayout linearLayout1;
-    SimpleDateFormat dateF = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+    SimpleDateFormat dateF = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,16 +130,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Button  printBtn = (Button)findViewById(R.id.printBtn);
+      //  printBtn.setEnabled(false);
         printBtn.setOnClickListener(new View.OnClickListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-
-                GenerateBarcode(GetBarcodeText());
-                linearLayout1.setVisibility(View.VISIBLE);
-                previewImage.setImageBitmap(barcode);
-                PrintBarcode();
+                if(itemNumber.getText().toString().length() != 5 || TextUtils.isEmpty(itemNumber.getText().toString())) {
+                    itemNumber.setError("Enter Item number");
+                    return;
+                }
+                else if(caseCount.getText().toString().length() != 3 || TextUtils.isEmpty(caseCount.getText().toString())){
+                    caseCount.setError("Enter Case count");
+                    return;
+                }
+                else if(skidNumber.getText().toString().length() != 2 || TextUtils.isEmpty(skidNumber.getText().toString())){
+                    skidNumber.setError("Enter Skid number");
+                    return;
+                }
+                else if(parallelizer.getText().toString().length() != 2 || TextUtils.isEmpty(parallelizer.getText().toString())){
+                    parallelizer.setError("Enter Parallelizer initials");
+                    return;
+                }
+                else if(TextUtils.isEmpty(dateMy.getText().toString())){
+                    dateMy.setError("Enter Date");
+                    return;
+                }
+                else{
+                    GenerateBarcode(GetBarcodeText());
+                    linearLayout1.setVisibility(View.VISIBLE);
+                    previewImage.setImageBitmap(barcode);
+                    PrintBarcode();
+                }
             }
         });
 
@@ -152,7 +176,8 @@ public class MainActivity extends AppCompatActivity {
 
         GenericPrintAdapter printAdapter =new GenericPrintAdapter(this,linearLayout1);
 
-        printManager.print("MyPrintJob",printAdapter,null);
+        printManager.print("MyPrintJob",printAdapter,null).isCompleted();
+
 
     }
 public class GenericPrintAdapter extends PrintDocumentAdapter{
@@ -210,9 +235,9 @@ public class GenericPrintAdapter extends PrintDocumentAdapter{
 
             float scale = Math.min(pageWidth / src.width(), pageHeight / src.height());
             float left = pageWidth / 2 - src.width() * scale / 2;
-            float top = pageHeight / 2 - src.height() * scale / 2;
+            float top = pageHeight / 2 ;
             float right = pageWidth / 2 + src.width() * scale / 2;
-            float bottom = pageHeight / 2 + src.height() * scale / 2;
+            float bottom = pageHeight / 2 + src.height() * scale ;
             RectF dst = new RectF(left, top, right, bottom);
 
             pageCanvas.drawBitmap(bitmap, src, dst, null);
@@ -239,6 +264,17 @@ public class GenericPrintAdapter extends PrintDocumentAdapter{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @Override
+    public void onFinish() {
+        super.onFinish();
+        skidNumber.getText().clear();
+        skidCountId.setText("");
+        palletizersinitialId.setText("");
+        parallelizer.getText().clear();
+        linearLayout1.setVisibility(View.GONE);
+
+
     }
 
 }
@@ -338,10 +374,6 @@ public class GenericPrintAdapter extends PrintDocumentAdapter{
         }
         return null;
     }
-
-
-
-
 
 }
 
