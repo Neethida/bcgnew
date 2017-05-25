@@ -22,7 +22,7 @@
             android:id="@+id/dateMy"
             android:focusable="false"/>
         <TextView
-            android:text="Item number"
+            android:text="Item number (5-characters)"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="0.0dp" />
@@ -32,7 +32,7 @@
             android:id="@+id/itemNumber"
             android:maxLength="5" />
         <TextView
-            android:text="Case count"
+            android:text="Case count (3-characters)"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView2" />
@@ -43,7 +43,7 @@
             android:inputType="number"
             android:maxLength="3" />
         <TextView
-            android:text="Skid number"
+            android:text="Skid number (2-characters)"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView3" />
@@ -54,7 +54,7 @@
             android:inputType="number"
             android:maxLength="2" />
         <TextView
-            android:text="Parallelizer initials"
+            android:text="Parallelizer initials (2-characters)"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView4" />
@@ -86,20 +86,24 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Item#"
-                        android:textColor="@android:color/black"
-                        android:gravity="center_horizontal"
+                        android:layout_height="match_parent"
                         android:layout_margin="1dp"
-                        android:background="@android:color/white"
                         android:layout_weight="1"
-                        android:textAlignment="center" />
+                        android:background="@android:color/white"
+                        android:gravity="center_horizontal"
+                        android:text="Item#"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="text"
+                        android:textStyle="bold"
+                        android:textSize="30dp"
                         android:id="@+id/itemId"
                         android:textColor="@android:color/black"
                         android:gravity="center_horizontal"
@@ -111,20 +115,23 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Case Count"
-                        android:textColor="@android:color/black"
-                        android:gravity="center_horizontal"
+                        android:layout_height="match_parent"
                         android:layout_margin="1dp"
-                        android:background="@android:color/white"
                         android:layout_weight="1"
-                        android:textAlignment="center" />
+                        android:background="@android:color/white"
+                        android:gravity="center_horizontal"
+                        android:text="Case Count"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="text"
+                        android:textStyle="bold"
+                        android:textSize="25dp"
                         android:id="@+id/caseCountId"
                         android:textColor="@android:color/black"
                         android:gravity="center_horizontal"
@@ -132,19 +139,23 @@
                         android:background="@android:color/white"
                         android:layout_weight="1"
                         android:textAlignment="center" />
+
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Skid Count"
-                        android:textColor="@android:color/black"
-                        android:gravity="center_horizontal"
+                        android:layout_height="match_parent"
                         android:layout_margin="1dp"
-                        android:background="@android:color/white"
                         android:layout_weight="1"
-                        android:textAlignment="center" />
+                        android:background="@android:color/white"
+                        android:gravity="center_horizontal"
+                        android:text="Skid Count"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="25dp"
                         android:text="text"
                         android:id="@+id/skidCountId"
                         android:textColor="@android:color/black"
@@ -157,41 +168,49 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Prod Date"
-                        android:textColor="@android:color/black"
-                        android:gravity="center_horizontal"
+                        android:layout_height="match_parent"
                         android:layout_margin="1dp"
-                        android:background="@android:color/white"
                         android:layout_weight="1"
-                        android:textAlignment="center" />
+                        android:background="@android:color/white"
+                        android:gravity="center_horizontal"
+                        android:text="Prod Date"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="text"
                         android:id="@+id/prodDateId"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
                         android:textColor="@android:color/black"
                         android:gravity="center_horizontal"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
                         android:layout_weight="1"
                         android:textAlignment="center" />
+
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Palletizers initial"
-                        android:textColor="@android:color/black"
-                        android:gravity="center_horizontal"
+                        android:layout_height="match_parent"
                         android:layout_margin="1dp"
-                        android:background="@android:color/white"
                         android:layout_weight="1"
-                        android:textAlignment="center" />
+                        android:background="@android:color/white"
+                        android:gravity="center_horizontal"
+                        android:text="Palletizers initial"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="text"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
                         android:id="@+id/palletizersinitialId"
                         android:textColor="@android:color/black"
                         android:gravity="center_horizontal"
