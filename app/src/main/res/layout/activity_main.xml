@@ -10,7 +10,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/LinearLayout">
         <TextView
             android:text="Date"
             android:layout_width="match_parent"
@@ -68,159 +69,17 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout1"
+            android:id="@+id/printlayout"
             android:gravity="center_horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/previewImg" />
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/tableLayout1"
-                android:background="@android:color/black"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center">
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1dp"
-                        android:layout_weight="1"
-                        android:background="@android:color/white"
-                        android:gravity="center_horizontal"
-                        android:text="Item#"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="text"
-                        android:textStyle="bold"
-                        android:textSize="30dp"
-                        android:id="@+id/itemId"
-                        android:textColor="@android:color/black"
-                        android:gravity="center_horizontal"
-                        android:layout_margin="1dp"
-                        android:background="@android:color/white"
-                        android:layout_weight="1"
-                        android:textAlignment="center" />
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_height="match_parent"
-                        android:layout_margin="1dp"
-                        android:layout_weight="1"
-                        android:background="@android:color/white"
-                        android:gravity="center_horizontal"
-                        android:text="Case Count"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="text"
-                        android:textStyle="bold"
-                        android:textSize="25dp"
-                        android:id="@+id/caseCountId"
-                        android:textColor="@android:color/black"
-                        android:gravity="center_horizontal"
-                        android:layout_margin="1dp"
-                        android:background="@android:color/white"
-                        android:layout_weight="1"
-                        android:textAlignment="center" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1dp"
-                        android:layout_weight="1"
-                        android:background="@android:color/white"
-                        android:gravity="center_horizontal"
-                        android:text="Skid Count"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textSize="25dp"
-                        android:text="text"
-                        android:id="@+id/skidCountId"
-                        android:textColor="@android:color/black"
-                        android:gravity="center_horizontal"
-                        android:layout_margin="1dp"
-                        android:background="@android:color/white"
-                        android:layout_weight="1"
-                        android:textAlignment="center" />
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1dp"
-                        android:layout_weight="1"
-                        android:background="@android:color/white"
-                        android:gravity="center_horizontal"
-                        android:text="Prod Date"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="text"
-                        android:id="@+id/prodDateId"
-                        android:textSize="25dp"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-                        android:gravity="center_horizontal"
-                        android:layout_margin="1dp"
-                        android:background="@android:color/white"
-                        android:layout_weight="1"
-                        android:textAlignment="center" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1dp"
-                        android:layout_weight="1"
-                        android:background="@android:color/white"
-                        android:gravity="center_horizontal"
-                        android:text="Palletizers initial"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="text"
-                        android:textSize="25dp"
-                        android:textStyle="bold"
-                        android:id="@+id/palletizersinitialId"
-                        android:textColor="@android:color/black"
-                        android:gravity="center_horizontal"
-                        android:layout_margin="1dp"
-                        android:background="@android:color/white"
-                        android:layout_weight="1"
-                        android:textAlignment="center" />
-                </TableRow>
-            </TableLayout>
         </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/privewlayout"
+            android:gravity="center_horizontal">
+        </LinearLayout>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
