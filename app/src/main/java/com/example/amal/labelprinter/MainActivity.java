@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.CancellationSignal;
 import android.os.Handler;
@@ -24,12 +25,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
@@ -53,44 +57,40 @@ import static com.example.amal.labelprinter.R.id.itemNumber;
 import static com.example.amal.labelprinter.R.id.text;
 
 public class MainActivity extends AppCompatActivity {
-    ImageView previewImage;
+
     Bitmap barcode;
     EditText dateMy;
     EditText itemNumber;
     EditText caseCount;
     EditText skidNumber;
     EditText parallelizer;
-    TextView itemId;
-    TextView caseCountId;
-    TextView skidCountId;
-    TextView prodDateId;
-    TextView palletizersinitialId;
-    LinearLayout linearLayout1;
+    TableLayout tl;
+    ImageView imageBc;
+    LinearLayout printlayout;
+    LinearLayout privewlayout;
+
+
+
     SimpleDateFormat dateF = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        previewImage = (ImageView)findViewById(R.id.previewImg);
-        linearLayout1 = (LinearLayout)findViewById(R.id.linearLayout1);
-        linearLayout1.setVisibility(View.INVISIBLE);
-
-        //linearLayout1.Visibility= ViewStates.Invisible;
         itemNumber =(EditText)findViewById(R.id.itemNumber);
         caseCount = (EditText)findViewById(R.id.caseCount);
         skidNumber = (EditText)findViewById(R.id.skidNumber);
         parallelizer = (EditText)findViewById(R.id.parallelizer);
         dateMy = (EditText)findViewById(R.id.dateMy);
 
-        //table textview
-        itemId = (TextView)findViewById(R.id.itemId);
-        caseCountId = (TextView)findViewById(R.id.caseCountId);
-        skidCountId = (TextView)findViewById(R.id.skidCountId);
-        prodDateId = (TextView)findViewById(R.id.prodDateId);
-        palletizersinitialId = (TextView)findViewById(R.id.palletizersinitialId);
         String dateCurrent = dateF.format(Calendar.getInstance().getTime());
         dateMy.setText(dateCurrent);
+
+        printlayout =(LinearLayout) findViewById(R.id.printlayout);
+        printlayout.setVisibility(View.INVISIBLE);
+
+        privewlayout=(LinearLayout) findViewById(R.id.privewlayout);
+        privewlayout.setVisibility(View.INVISIBLE);
 
         dateMy.setOnClickListener(new View.OnClickListener() {
 
@@ -123,19 +123,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                privewlayout.removeAllViews();
                 GenerateBarcode(GetBarcodeText());
-                linearLayout1.setVisibility(View.VISIBLE);
-                previewImage.setImageBitmap(barcode);
+                layoutContentent(true);
+                privewlayout.setVisibility(View.VISIBLE);
             }
         });
         Button  printBtn = (Button)findViewById(R.id.printBtn);
-      //  printBtn.setEnabled(false);
         printBtn.setOnClickListener(new View.OnClickListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
+
+
                 if(itemNumber.getText().toString().length() != 5 || TextUtils.isEmpty(itemNumber.getText().toString())) {
                     itemNumber.setError("Enter Item number");
                     return;
@@ -158,12 +159,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     GenerateBarcode(GetBarcodeText());
-                    linearLayout1.setVisibility(View.VISIBLE);
-                    previewImage.setImageBitmap(barcode);
+                    layoutContentent(false);
                     PrintBarcode();
                 }
+
             }
         });
+
 
 
 
@@ -171,10 +173,12 @@ public class MainActivity extends AppCompatActivity {
 
     private  void PrintBarcode()
     {
+
         PrintManager printManager = (PrintManager)
                 this.getSystemService(Context.PRINT_SERVICE);
 
-        GenericPrintAdapter printAdapter =new GenericPrintAdapter(this,linearLayout1);
+
+        GenericPrintAdapter printAdapter =new GenericPrintAdapter(this,printlayout);
 
         printManager.print("MyPrintJob",printAdapter,null).isCompleted();
 
@@ -204,7 +208,7 @@ public class GenericPrintAdapter extends PrintDocumentAdapter{
 
             PrintDocumentInfo printDocumentInfo = new PrintDocumentInfo
                     .Builder("MyPrint.pdf")
-                    .setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT)
+                    .setContentType(PrintDocumentInfo.CONTENT_TYPE_UNKNOWN)
                     .setPageCount(totalPages)
                    .build();
 
@@ -222,8 +226,6 @@ public class GenericPrintAdapter extends PrintDocumentAdapter{
         for (int i = 0; i < totalPages; i++)
         {
             PrintedPdfDocument.Page page = document.startPage(i);
-
-
             Bitmap bitmap = Bitmap.createBitmap(mView.getWidth(), mView.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             mView.draw(canvas);
@@ -269,11 +271,12 @@ public class GenericPrintAdapter extends PrintDocumentAdapter{
     public void onFinish() {
         super.onFinish();
         skidNumber.getText().clear();
-        skidCountId.setText("");
-        palletizersinitialId.setText("");
         parallelizer.getText().clear();
-        linearLayout1.setVisibility(View.GONE);
 
+
+        printlayout.removeAllViews();
+        privewlayout.setVisibility(View.GONE);
+        privewlayout.setVisibility(View.GONE);
 
     }
 
@@ -282,17 +285,14 @@ public class GenericPrintAdapter extends PrintDocumentAdapter{
 
     private Bitmap GenerateBarcode(String text){
 
-        itemId.setText(itemNumber.getText());
-        caseCountId.setText(caseCount.getText());
-        skidCountId.setText(skidNumber.getText());
-        prodDateId.setText(dateMy.getText());
-        palletizersinitialId.setText(parallelizer.getText());
+
+
         // barcode image
         Bitmap bitmap = null;
 
         try {
 
-            bitmap = encodeAsBitmap(GetBarcodeText(), BarcodeFormat.CODE_128, 1200, 300);
+            bitmap = encodeAsBitmap(GetBarcodeText(), BarcodeFormat.CODE_128, 1200, 250);
 
         } catch (WriterException e) {
             e.printStackTrace();
@@ -303,18 +303,167 @@ public class GenericPrintAdapter extends PrintDocumentAdapter{
         Canvas canvas = new Canvas(barcode);
         Paint paint =new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setTextSize(12*scale);
+        paint.setTextSize(20*scale);
         Rect bounds =new Rect();
         paint.getTextBounds(text,0,text.length(),bounds);
         int x = (barcode.getWidth()-bounds.width())/2;
         int y = (barcode.getHeight()-bounds.height());
         paint.setColor(Color.rgb(250,250,250));
-        canvas.drawRect(0,y-10,barcode.getWidth(),barcode.getHeight(),paint);
-        paint.setColor(Color.rgb(10,110,80));
-        canvas.drawText(text,x,y+bounds.height()-5,paint);
+        canvas.drawRect(0,y-15,barcode.getWidth(),barcode.getHeight(),paint);
+        paint.setColor(Color.rgb(0,0,0));
+        //paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        canvas.drawText(text,x,y+bounds.height()-15,paint);
         return barcode;
 
     }
+
+    public void layoutContentent(boolean layoutType){
+
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        layoutParams.setMargins(45,0,45,0);
+
+        tl = new TableLayout(this);
+        tl.setLayoutParams(printlayout.getLayoutParams());
+        tl.setLayoutParams(layoutParams);
+        tl.setBackgroundColor(Color.BLACK);
+
+        this.GenerateBarcode(GetBarcodeText());
+        imageBc =new ImageView(this);
+        imageBc.setImageBitmap(barcode);
+
+        if (layoutType) {
+            privewlayout.addView(imageBc);
+            privewlayout.addView(tl);
+        }else {
+            printlayout.addView(imageBc);
+            printlayout.addView(tl);
+        }
+
+
+        TableLayout.LayoutParams lp =new TableLayout.LayoutParams(
+
+        );
+        lp.setMargins(1,1,1,1);
+
+        TableRow row1 = new TableRow(this);
+        TableRow row2 = new TableRow(this);
+        TableRow row3 = new TableRow(this);
+        row1.setLayoutParams(lp);
+        row2.setLayoutParams(lp);
+        row3.setLayoutParams(lp);
+
+        TableRow.LayoutParams lp2 = new TableRow.LayoutParams(
+                TableRow.LayoutParams.MATCH_PARENT,
+                TableRow.LayoutParams.MATCH_PARENT
+        );
+        lp2.weight=1;
+        lp2.setMargins(2,2,2,2);
+
+
+        TextView tv11 = new TextView(this);
+        tv11.setTypeface(null, Typeface.BOLD);
+        tv11.setBackgroundColor(Color.WHITE);
+        tv11.setTextColor(Color.BLACK);
+        tv11.setGravity(Gravity.CENTER);
+        tv11.setLayoutParams(lp2);
+        tv11.setText("Item#");
+
+        TextView tv12 = new TextView(this);
+        tv12.setBackgroundColor(Color.WHITE);
+        tv12.setGravity(Gravity.CENTER);
+        tv12.setTextSize(25);
+        tv12.setTextColor(Color.BLACK);
+        tv12.setLayoutParams(lp2);
+        tv12.setText(itemNumber.getText());
+
+        TextView tv21 = new TextView(this);
+        tv21.setBackgroundColor(Color.WHITE);
+        tv21.setTypeface(null, Typeface.BOLD);
+        tv21.setGravity(Gravity.CENTER);
+        tv21.setLayoutParams(lp2);
+        tv21.setTextColor(Color.BLACK);
+        tv21.setText("Case Count");
+
+        TextView tv22 = new TextView(this);
+        tv22.setBackgroundColor(Color.WHITE);
+        tv22.setTextColor(Color.BLACK);
+        tv22.setGravity(Gravity.CENTER);
+        tv22.setLayoutParams(lp2);
+        tv22.setTextSize(25);
+        tv22.setText(caseCount.getText());
+
+        TextView tv23 = new TextView(this);
+        tv23.setLayoutParams(lp2);
+        tv23.setGravity(Gravity.CENTER);
+        tv23.setBackgroundColor(Color.WHITE);
+        tv23.setTextColor(Color.BLACK);
+        tv23.setTypeface(null, Typeface.BOLD);
+        tv23.setText("Skid Count");
+
+        TextView tv24 = new TextView(this);
+        tv24.setBackgroundColor(Color.WHITE);
+        tv24.setTextColor(Color.BLACK);
+        tv24.setGravity(Gravity.CENTER);
+        tv24.setLayoutParams(lp2);
+        tv24.setTextSize(25);
+        tv24.setText(skidNumber.getText());
+
+        TextView tv31 = new TextView(this);
+        tv31.setBackgroundColor(Color.WHITE);
+        tv31.setTypeface(null, Typeface.BOLD);
+        tv31.setGravity(Gravity.CENTER);
+        tv31.setTextColor(Color.BLACK);
+        tv31.setLayoutParams(lp2);
+        tv31.setText("Prod Date");
+
+        TextView tv32 = new TextView(this);
+        tv32.setText(dateMy.getText());
+        tv32.setTextSize(25);
+        tv32.setGravity(Gravity.CENTER);
+        tv32.setLayoutParams(lp2);
+        tv32.setTextColor(Color.BLACK);
+        tv32.setBackgroundColor(Color.WHITE);
+
+        TextView tv33 = new TextView(this);
+        tv33.setTypeface(null, Typeface.BOLD);
+        tv33.setBackgroundColor(Color.WHITE);
+        tv33.setGravity(Gravity.CENTER);
+        tv33.setTextColor(Color.BLACK);
+        tv33.setLayoutParams(lp2);
+        tv33.setText("Palletizers initial");
+
+        TextView tv34 = new TextView(this);
+        tv34.setBackgroundColor(Color.WHITE);
+        tv34.setTextColor(Color.BLACK);
+        tv34.setGravity(Gravity.CENTER);
+        tv34.setLayoutParams(lp2);
+        tv34.setTextSize(25);
+        tv34.setText(parallelizer.getText());
+
+
+
+        tl.addView(row1);
+        tl.addView(row2);
+        tl.addView(row3);
+
+        row1.addView(tv11);
+        row1.addView(tv12);
+
+        row2.addView(tv21);
+        row2.addView(tv22);
+        row2.addView(tv23);
+        row2.addView(tv24);
+
+        row3.addView(tv31);
+        row3.addView(tv32);
+        row3.addView(tv33);
+        row3.addView(tv34);
+    }
+
+
 
     private  String GetBarcodeText()
     {
